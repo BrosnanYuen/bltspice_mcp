@@ -27,7 +27,6 @@ Asynchronous MCP server for LTspice + PyLTSpice (`PyLTSpice>=5.5.1`) built with 
 
 ## Quick Setup
 ```bash
-cd /home/brosnan/ltspice_mcp/ltspice_mcp
 python3 -m venv .venv
 . .venv/bin/activate
 pip install -U pip
@@ -155,7 +154,6 @@ Integration tests now include:
 
 ## Run Tests (One By One)
 ```bash
-cd /home/brosnan/ltspice_mcp/ltspice_mcp
 . .venv/bin/activate
 pytest -q tests/unit/test_responses.py
 pytest -q tests/unit/test_config.py
