@@ -1,1 +1,2 @@
 *.pyc
+./src/ltspice_mcp.egg-info/*
