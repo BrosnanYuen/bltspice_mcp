@@ -31,7 +31,7 @@ cd /home/brosnan/ltspice_mcp/ltspice_mcp
 python3 -m venv .venv
 . .venv/bin/activate
 pip install -U pip
-pip install "PyLTSpice>=5.5.1" "fastmcp>=3.2.4" pytest pytest-asyncio
+pip install "PyLTSpice>=6.0.1" "fastmcp>=3.4.4" "electronics-design>=0.1.2" pytest pytest-asyncio
 pip install -e .
 ```
 
