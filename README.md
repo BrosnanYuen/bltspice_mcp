@@ -18,7 +18,7 @@ Asynchronous MCP server for LTspice + PyLTSpice (`PyLTSpice>=5.5.1`) built with 
 - `testfiles/` copied example assets (`.asc/.log/.raw/.asy/.txt/.net`)
 - `examples/codex/` and `examples/opencode/` MCP call recipes for LLM agents
 - `config.json` server configuration
-- `LLM.md` LLM tool-calling reference
+- `ltspice_mcp_for_LLM.md` LLM tool-calling reference
 
 ## Requirements
 - Python 3.11+
