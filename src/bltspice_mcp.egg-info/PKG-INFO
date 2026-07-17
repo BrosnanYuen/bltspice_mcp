@@ -1,3 +1,18 @@
+Metadata-Version: 2.4
+Name: bltspice-mcp
+Version: 0.2.4
+Summary: Asynchronous MCP server for LTspice using PyLTSpice
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: PyLTSpice>=6.0.1
+Requires-Dist: fastmcp>=3.4.4
+Requires-Dist: electronics-design>=0.1.4
+Provides-Extra: test
+Requires-Dist: pytest>=8.0.0; extra == "test"
+Requires-Dist: pytest-asyncio>=0.23.0; extra == "test"
+Dynamic: license-file
+
 # bltspice_mcp
 
 ![Generate LTSpice Circuits using LLMs](./head.png)

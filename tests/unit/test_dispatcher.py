@@ -2,9 +2,9 @@ from pathlib import Path
 
 import pytest
 
-from ltspice_mcp.config import ServerConfig, load_config
-from ltspice_mcp.conversion import CONVERSION_CALLABLES
-from ltspice_mcp.dispatcher import ApiDispatcher
+from bltspice_mcp.config import ServerConfig, load_config
+from bltspice_mcp.conversion import CONVERSION_CALLABLES
+from bltspice_mcp.dispatcher import ApiDispatcher
 
 
 class DummyObject:

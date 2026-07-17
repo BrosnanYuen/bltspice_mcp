@@ -1,12 +1,12 @@
-# sim_client_example.py via ltspice_mcp
+# sim_client_example.py via bltspice_mcp
 
 Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 
 ## Goal
-Handle README `sim_client_example.py` in the context of `ltspice_mcp`.
+Handle README `sim_client_example.py` in the context of `bltspice_mcp`.
 
 ## Important Limitation
-`sim_client_example.py` uses `SimClient` (PyLTSpice remote client/server API). The `ltspice_mcp` server exposes only:
+`sim_client_example.py` uses `SimClient` (PyLTSpice remote client/server API). The `bltspice_mcp` server exposes only:
 - `runtime_info`
 - `execute_status`
 - `stop_reset`
@@ -22,7 +22,7 @@ Handle README `sim_client_example.py` in the context of `ltspice_mcp`.
 ## If you intentionally test unsupported API behavior
 1. Call:
 ```json
-ltspice_mcp_execute {"api_name":"SimClient","inputs":{"host":"http://localhost","port":9000}}
+bltspice_mcp_execute {"api_name":"SimClient","inputs":{"host":"http://localhost","port":9000}}
 ```
 2. Poll `execute_status`.
 3. Expect `invalid input!` as deterministic response.

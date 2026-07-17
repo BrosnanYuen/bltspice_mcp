@@ -1,5 +1,5 @@
-from ltspice_mcp import create_mcp_server
-from ltspice_mcp.responses import (
+from bltspice_mcp import create_mcp_server
+from bltspice_mcp.responses import (
     completed,
     file_not_found,
     in_progress,

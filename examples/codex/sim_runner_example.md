@@ -1,4 +1,4 @@
-# sim_runner_example.py via ltspice_mcp
+# sim_runner_example.py via bltspice_mcp
 
 Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 
@@ -6,18 +6,18 @@ Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 Replicate the SimRunner + SpiceEditor workflow from README.
 
 ## Preconditions
-- MCP server `ltspice_mcp` is connected.
+- MCP server `bltspice_mcp` is connected.
 - LTspice runtime configured if you want actual simulation runs.
 
 ## Step-by-step
 1. Create runner:
 ```json
-{"tool":"execute","arguments":{"api_name":"SimRunner","inputs":{"new_object_name":"runner","output_folder":"/home/brosnan/ltspice_mcp/ltspice_mcp/testfiles/temp"}}}
+{"tool":"execute","arguments":{"api_name":"SimRunner","inputs":{"new_object_name":"runner","output_folder":"/home/brosnan/bltspice_mcp/bltspice_mcp/testfiles/temp"}}}
 ```
 2. Poll `execute_status`.
 3. Create netlist object:
 ```json
-{"tool":"execute","arguments":{"api_name":"SpiceEditor","inputs":{"new_object_name":"net","netlist_file":"/home/brosnan/ltspice_mcp/ltspice_mcp/testfiles/testfile.net"}}}
+{"tool":"execute","arguments":{"api_name":"SpiceEditor","inputs":{"new_object_name":"net","netlist_file":"/home/brosnan/bltspice_mcp/bltspice_mcp/testfiles/testfile.net"}}}
 ```
 4. Poll `execute_status`.
 5. Apply edits:

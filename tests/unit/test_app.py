@@ -3,8 +3,8 @@ from unittest.mock import Mock
 
 import pytest
 
-from ltspice_mcp.app import run_server
-from ltspice_mcp.config import ServerConfig
+from bltspice_mcp.app import run_server
+from bltspice_mcp.config import ServerConfig
 
 
 def _config(tmp_path: Path, url: str) -> ServerConfig:

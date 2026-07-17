@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from ltspice_mcp.config import ServerConfig
-from ltspice_mcp.session import SessionManager
+from bltspice_mcp.config import ServerConfig
+from bltspice_mcp.session import SessionManager
 
 
 @pytest.fixture

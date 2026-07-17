@@ -1,4 +1,4 @@
-# raw_read_example.py via ltspice_mcp
+# raw_read_example.py via bltspice_mcp
 
 Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 
@@ -6,9 +6,9 @@ Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 Replicate `PyLTSpice/examples/raw_read_example.py` through MCP calls.
 
 ## Preconditions
-- MCP server `ltspice_mcp` is connected.
+- MCP server `bltspice_mcp` is connected.
 - Use absolute file paths.
-- Example raw file: `/home/brosnan/ltspice_mcp/ltspice_mcp/testfiles/TRAN - STEP.raw`
+- Example raw file: `/home/brosnan/bltspice_mcp/bltspice_mcp/testfiles/TRAN - STEP.raw`
 
 ## Step-by-step
 1. Check runtime:
@@ -21,7 +21,7 @@ Replicate `PyLTSpice/examples/raw_read_example.py` through MCP calls.
 ```
 3. Load RAW into object `raw_tran`:
 ```json
-{"tool":"execute","arguments":{"api_name":"RawRead","inputs":{"new_object_name":"raw_tran","raw_filename":"/home/brosnan/ltspice_mcp/ltspice_mcp/testfiles/TRAN - STEP.raw"}}}
+{"tool":"execute","arguments":{"api_name":"RawRead","inputs":{"new_object_name":"raw_tran","raw_filename":"/home/brosnan/bltspice_mcp/bltspice_mcp/testfiles/TRAN - STEP.raw"}}}
 ```
 4. Poll `execute_status` until not in progress.
 5. Get trace names:

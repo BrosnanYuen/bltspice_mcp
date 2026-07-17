@@ -1,4 +1,4 @@
-# ltsteps_example.py via ltspice_mcp
+# ltsteps_example.py via bltspice_mcp
 
 Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 
@@ -6,13 +6,13 @@ Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 Replicate log parsing with `LTSpiceLogReader` from README.
 
 ## Preconditions
-- MCP server `ltspice_mcp` is connected.
-- Log file: `/home/brosnan/ltspice_mcp/ltspice_mcp/testfiles/Batch_Test_AD820_15.log`
+- MCP server `bltspice_mcp` is connected.
+- Log file: `/home/brosnan/bltspice_mcp/bltspice_mcp/testfiles/Batch_Test_AD820_15.log`
 
 ## Step-by-step
 1. Create reader object:
 ```json
-{"tool":"execute","arguments":{"api_name":"LTSpiceLogReader","inputs":{"new_object_name":"log_reader","log_filename":"/home/brosnan/ltspice_mcp/ltspice_mcp/testfiles/Batch_Test_AD820_15.log"}}}
+{"tool":"execute","arguments":{"api_name":"LTSpiceLogReader","inputs":{"new_object_name":"log_reader","log_filename":"/home/brosnan/bltspice_mcp/bltspice_mcp/testfiles/Batch_Test_AD820_15.log"}}}
 ```
 2. Poll `execute_status`.
 3. Get step variables:

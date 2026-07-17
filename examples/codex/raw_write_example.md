@@ -1,4 +1,4 @@
-# raw_write_example.py via ltspice_mcp
+# raw_write_example.py via bltspice_mcp
 
 Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 
@@ -6,7 +6,7 @@ Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 Replicate the README RawWrite snippet using MCP calls.
 
 ## Preconditions
-- MCP server `ltspice_mcp` is connected.
+- MCP server `bltspice_mcp` is connected.
 - Output path is absolute.
 
 ## Step-by-step
@@ -39,6 +39,6 @@ Replicate the README RawWrite snippet using MCP calls.
 6. Poll after each call.
 7. Save RAW:
 ```json
-{"tool":"execute","arguments":{"api_name":"save","inputs":{"object_name":"rw","filename":"/home/brosnan/ltspice_mcp/ltspice_mcp/testfiles/teste_snippet1.raw"}}}
+{"tool":"execute","arguments":{"api_name":"save","inputs":{"object_name":"rw","filename":"/home/brosnan/bltspice_mcp/bltspice_mcp/testfiles/teste_snippet1.raw"}}}
 ```
 8. Poll `execute_status` and confirm `LTspice operation completed!`.

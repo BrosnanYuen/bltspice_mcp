@@ -1,12 +1,12 @@
-# sim_client_example.py via ltspice_mcp
+# sim_client_example.py via bltspice_mcp
 
 Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 
 ## Goal
-Handle README `sim_client_example.py` in the context of `ltspice_mcp`.
+Handle README `sim_client_example.py` in the context of `bltspice_mcp`.
 
 ## Important Limitation
-`sim_client_example.py` uses `SimClient` (PyLTSpice remote client/server API). The `ltspice_mcp` server exposes only:
+`sim_client_example.py` uses `SimClient` (PyLTSpice remote client/server API). The `bltspice_mcp` server exposes only:
 - `runtime_info`
 - `execute_status`
 - `stop_reset`

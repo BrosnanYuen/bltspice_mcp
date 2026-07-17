@@ -179,7 +179,7 @@ def make_ctx_notifier(ctx: Any) -> Notifier:
         notification = LoggingMessageNotification(
             params=LoggingMessageNotificationParams(
                 level="info",
-                logger="ltspice_mcp",
+                logger="bltspice_mcp",
                 data=json.dumps(payload),
             )
         )

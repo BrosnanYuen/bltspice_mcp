@@ -1,4 +1,4 @@
-# run_montecarlo.py via ltspice_mcp
+# run_montecarlo.py via bltspice_mcp
 
 Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 
@@ -6,17 +6,17 @@ Use this for LLMs in OpenCode, OpenAI Codex, or Claude Code.
 Replicate README Montecarlo setup and execution flow through MCP.
 
 ## Preconditions
-- MCP server `ltspice_mcp` is connected.
-- File: `/home/brosnan/ltspice_mcp/ltspice_mcp/testfiles/sallenkey.asc`
+- MCP server `bltspice_mcp` is connected.
+- File: `/home/brosnan/bltspice_mcp/bltspice_mcp/testfiles/sallenkey.asc`
 
 ## Step-by-step
 1. Create AscEditor object:
 ```json
-{"tool":"execute","arguments":{"api_name":"AscEditor","inputs":{"new_object_name":"sallenkey","asc_filename":"/home/brosnan/ltspice_mcp/ltspice_mcp/testfiles/sallenkey.asc"}}}
+{"tool":"execute","arguments":{"api_name":"AscEditor","inputs":{"new_object_name":"sallenkey","asc_filename":"/home/brosnan/bltspice_mcp/bltspice_mcp/testfiles/sallenkey.asc"}}}
 ```
 2. Create SimRunner:
 ```json
-{"tool":"execute","arguments":{"api_name":"SimRunner","inputs":{"new_object_name":"runner_mc","output_folder":"/home/brosnan/ltspice_mcp/ltspice_mcp/testfiles/temp_mc"}}}
+{"tool":"execute","arguments":{"api_name":"SimRunner","inputs":{"new_object_name":"runner_mc","output_folder":"/home/brosnan/bltspice_mcp/bltspice_mcp/testfiles/temp_mc"}}}
 ```
 3. Create Montecarlo object:
 ```json

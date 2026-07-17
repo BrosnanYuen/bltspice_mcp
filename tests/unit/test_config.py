@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from ltspice_mcp.config import ConvertSettings, ServerConfig, load_config
+from bltspice_mcp.config import ConvertSettings, ServerConfig, load_config
 
 
 def test_config_supports_required_schemes(tmp_path: Path):

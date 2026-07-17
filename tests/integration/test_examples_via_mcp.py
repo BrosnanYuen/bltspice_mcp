@@ -7,8 +7,8 @@ from pathlib import Path
 import pytest
 from fastmcp import Client
 
-from ltspice_mcp.app import create_mcp_server
-from ltspice_mcp.config import ServerConfig
+from bltspice_mcp.app import create_mcp_server
+from bltspice_mcp.config import ServerConfig
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 # Keep the example-name contract in this repository instead of requiring a

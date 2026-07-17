@@ -107,7 +107,7 @@ Example:
 
 ## `run_ltspice_to_csv.py` Equivalent Calls
 Use this sequence to mirror `netlistexample/run_ltspice_to_csv.py`:
-1. `SpiceEditor` on `/home/brosnan/ltspice_mcp/ltspice_mcp/testfiles/opampdouble.net`
+1. `SpiceEditor` on `/home/brosnan/bltspice_mcp/bltspice_mcp/testfiles/opampdouble.net`
 2. `SimRunner` with an output folder
 3. `SimRunner.run` with `new_object_name:"run_task"`
 4. `wait_results` on `run_task` to get `raw_file`
@@ -117,8 +117,8 @@ Use this sequence to mirror `netlistexample/run_ltspice_to_csv.py`:
    - `output_files:"./sim_wave_"`
 
 Codex/OpenCode ready recipes:
-- `/home/brosnan/ltspice_mcp/ltspice_mcp/examples/codex/run_ltspice_to_csv.md`
-- `/home/brosnan/ltspice_mcp/ltspice_mcp/examples/opencode/run_ltspice_to_csv.md`
+- `/home/brosnan/bltspice_mcp/bltspice_mcp/examples/codex/run_ltspice_to_csv.md`
+- `/home/brosnan/bltspice_mcp/bltspice_mcp/examples/opencode/run_ltspice_to_csv.md`
 
 ## Example Workflow
 ```json

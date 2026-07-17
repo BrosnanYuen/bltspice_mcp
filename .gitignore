@@ -1,2 +1,2 @@
 *.pyc
-./src/ltspice_mcp.egg-info/*
+./src/bltspice_mcp.egg-info/*
