@@ -8,6 +8,7 @@ Create any LTSpice circuit using LLMs!
 
 Converts ltspice netlist .net to ltspice .asc file format!
 
+![REALTIME LTSpice simulation and export to .csv!](./loop.png)
 
 REALTIME LTSpice simulation and export to .csv!
 
