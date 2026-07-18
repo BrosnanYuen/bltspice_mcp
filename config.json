@@ -13,6 +13,7 @@
     "wire_pin_out_dist": 16,
     "grid_size": 16,
     "autoplace_iter": 12,
-    "ltspice_version": 4.1
+    "ltspice_version": 4.1,
+    "voltage_must_have_dc": true
   }
 }
