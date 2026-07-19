@@ -11,7 +11,7 @@ requires-python = ">=3.11"
 dependencies = [
   "PyLTSpice>=6.0.1",
   "fastmcp>=3.4.4",
-  "electronics-design>=0.1.5",
+  "electronics-design>=0.1.7",
 ]
 
 [project.optional-dependencies]
