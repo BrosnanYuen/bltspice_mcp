@@ -139,6 +139,24 @@ Server statuses:
 
 Each payload includes `operation`. Successful responses include `output`, and optionally `output_obj_name`.
 
+### Session-isolated `stop_reset`
+
+Each MCP session owns a dedicated OS worker process group containing its
+dispatcher registry, PyLTSpice `RunTask` threads, simulator subprocesses, and
+callback children. `stop_reset` interrupts that session immediately with
+`SIGKILL`, clears operations that were already queued for it, and discards its
+object registry. It does not signal worker groups belonging to other MCP
+sessions. Because operating systems apply `SIGKILL` to processes rather than
+individual threads, killing the session worker process terminates all of its
+threads atomically.
+
+The immediate response is the normal in-progress payload. Poll `execute_status`
+until both `status` is complete and `operation` is `stop_reset`. Its output
+includes `worker_process_killed`, `processes_killed`,
+`threads_terminated_with_processes`, and `queued_operations_killed`. Work
+submitted after the reset call waits until the reset completes and runs in a
+fresh session worker.
+
 ## `traces_to_csv` via `execute`
 Convert selected traces from a loaded `RawRead` object into one CSV per wave/step.
 
@@ -195,6 +213,7 @@ pytest -q tests/integration/test_run_ltspice_to_csv_via_mcp.py
 
 ## Notes
 - `runtime_info` is immediate and does not require `execute_status` polling.
-- Server queues `execute`/`stop_reset` in FIFO per MCP session.
+- Server queues `execute` in FIFO per MCP session; `stop_reset` interrupts only
+  that session's worker process group and clears its existing queue.
 - `execute_status` polls the latest status for queued operations.
 - Completion/error notifications are emitted through MCP notification channel.

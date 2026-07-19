@@ -5,7 +5,7 @@
 |---|---|---|
 | `runtime_info` | `{}` | Return runtime diagnostics for LTspice/Wine/OS and simulator readiness immediately. |
 | `execute_status` | `{}` | Poll latest status for the session queue. |
-| `stop_reset` | `{}` | Cancel/reset queue and object registry for current session. |
+| `stop_reset` | `{}` | SIGKILL only the current session's worker/process tree, clear its existing queue, and discard its object registry. |
 | `execute` | `{"api_name": "...", "inputs": {...}}` | Queue one PyLTSpice API operation. |
 
 ## Async Behavior

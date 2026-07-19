@@ -12,6 +12,7 @@ dependencies = [
   "PyLTSpice>=6.0.1",
   "fastmcp>=3.4.4",
   "electronics-design>=0.1.7",
+  "psutil>=5.9.0",
 ]
 
 [project.optional-dependencies]

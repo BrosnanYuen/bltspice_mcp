@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -19,7 +20,15 @@ def _session_id_from_ctx(ctx: Context) -> str:
 
 def create_mcp_server(config: ServerConfig, project_root: Path) -> FastMCP:
     manager = SessionManager(config=config, project_root=project_root)
-    mcp = FastMCP(name=config.mcp_server_name)
+
+    @asynccontextmanager
+    async def lifespan(_server: FastMCP):
+        try:
+            yield {"session_manager": manager}
+        finally:
+            await manager.aclose()
+
+    mcp = FastMCP(name=config.mcp_server_name, lifespan=lifespan)
 
     @mcp.tool(name="runtime_info", description="Check LTspice runtime configuration and host diagnostics.")
     async def runtime_info(ctx: Context) -> dict:
