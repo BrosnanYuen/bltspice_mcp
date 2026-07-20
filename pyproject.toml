@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bltspice-mcp"
-version = "0.2.8"
+version = "0.3.1"
 description = "Create ltspice circuits with LLMs. Convert netlist to LTSpice .asc."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "PyLTSpice>=6.0.1",
   "fastmcp>=3.4.4",
-  "electronics-design>=0.1.7",
+  "electronics-design>=0.1.9",
   "psutil>=5.9.0",
 ]
 
