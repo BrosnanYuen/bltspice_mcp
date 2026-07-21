@@ -1,3 +1,5 @@
+![Qwen 27B generating a circuit](./qwen.gif)
+
 # bltspice_mcp
 
 ![Generate LTSpice Circuits using LLMs](./head.png)
