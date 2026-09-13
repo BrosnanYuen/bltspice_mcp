@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bltspice-mcp"
-version = "0.3.3"
+version = "0.3.2"
 description = "Create ltspice circuits with LLMs. Convert netlist to LTSpice .asc."
 readme = "README.md"
 requires-python = ">=3.11"
