@@ -18,7 +18,7 @@ REALTIME LTSpice simulation and export to .csv!
 - `src/bltspice_mcp/` server source code
 - `tests/unit/` unit tests
 - `tests/integration/` integration tests
-- `testfiles/` copied example assets (`.asc/.log/.raw/.asy/.txt/.net`)
+- `testfiles/` copied example assets (`.asc/.log/.raw/.asy/.txt/.net/.kicad_sch`)
 - `examples/codex/` and `examples/opencode/` MCP call recipes for LLM agents
 - `config.json` server configuration
 - `bltspice_mcp_for_LLM.md` LLM tool-calling reference
@@ -56,7 +56,8 @@ pip install -e .
     "grid_size": 16,
     "autoplace_iter": 12,
     "ltspice_version": 4.1,
-    "voltage_must_have_dc": true
+    "voltage_must_have_dc": true,
+    "kicad_path": "/usr/share/kicad/"
   }
 }
 ```
@@ -177,13 +178,33 @@ Example MCP call:
 ## LTspice schematic conversion via `execute`
 
 The following `electronics-design` APIs are available through `execute`:
-`is_valid_ltspice_netlist_file` and `ltspice_netlist_to_asc`.
+`is_valid_ltspice_netlist_file`, `ltspice_netlist_to_asc`,
+`kicad_sch_to_ltspice_netlist`, and `ltspice_netlist_to_kicad_sch`.
 
-`ltspice_netlist_to_asc` receives the configured `convert_settings` automatically.
+The conversion APIs receive the configured `convert_settings` automatically.
 A request may include an `inputs.convert_settings` object to override individual
 values for that call. `is_valid_ltspice_netlist_file` only requires its filepath.
 `voltage_must_have_dc` must be a JSON boolean and is passed to
 `ltspice_netlist_to_asc` inside `convert_settings`.
+
+KiCad conversions require `kicad_path` to point at a directory containing KiCad
+symbol libraries (default `/usr/share/kicad/`). It can be set in `config.json`
+or overridden per request inside `inputs.convert_settings`. Other
+`electronics-design` KiCad generation settings keep their package defaults.
+
+Example MCP calls:
+```json
+{"tool":"execute","arguments":{"api_name":"kicad_sch_to_ltspice_netlist","inputs":{"kicad_sch_filepath":"/abs/path/input.kicad_sch","ltspice_netlist_filepath_out":"/abs/path/output.net"}}}
+```
+```json
+{"tool":"execute","arguments":{"api_name":"ltspice_netlist_to_kicad_sch","inputs":{"ltspice_netlist_filepath":"/abs/path/input.net","kicad_sch_filepath_out":"/abs/path/output.kicad_sch"}}}
+```
+
+`kicad_sch_to_ltspice_netlist` converts one KiCad schematic into one validated
+LTspice netlist. `ltspice_netlist_to_kicad_sch` converts one validated LTspice
+netlist into one validated KiCad schematic. Both return the electronics-design
+conversion tuple `[true, "OK", 0]` on success or `[false, "<error code>", <line>]`
+on failure inside `output.result`.
 
 ## `run_ltspice_to_csv.py` Equivalent MCP Flow
 Equivalent artifacts are included for the op-amp example workflow:
@@ -199,6 +220,8 @@ Integration tests now include:
   (`tests/fixtures/pyltspice_example_manifest.json`)
 - Mapping coverage for the checked-in README example-name list in that manifest
 - End-to-end `run_ltspice_to_csv.py` style MCP workflow for `opampdouble.net`
+- KiCad conversion MCP workflows for `kicad_sch_to_ltspice_netlist` and
+  `ltspice_netlist_to_kicad_sch` (`tests/integration/test_kicad_conversion_via_mcp.py`)
 
 ## Run Tests (One By One)
 ```bash
@@ -211,6 +234,7 @@ pytest -q tests/integration/test_mcp_server_integration.py
 pytest -q tests/integration/test_examples_via_mcp.py
 pytest -q tests/integration/test_readme_examples_via_mcp.py
 pytest -q tests/integration/test_run_ltspice_to_csv_via_mcp.py
+pytest -q tests/integration/test_kicad_conversion_via_mcp.py
 ```
 
 ## Notes

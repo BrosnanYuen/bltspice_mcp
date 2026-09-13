@@ -182,7 +182,7 @@ class ApiDispatcher:
     def _normalize_convert_settings(self, settings: Mapping[str, Any]) -> dict[str, Any]:
         normalized = dict(settings)
 
-        for key in ("ltspice_wine_path",):
+        for key in ("ltspice_wine_path", "kicad_path"):
             if key in normalized:
                 normalized[key] = self._normalize_convert_path(normalized[key], preserve_windows=False)
 

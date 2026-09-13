@@ -96,6 +96,8 @@ def test_only_requested_electronics_design_apis_are_exposed():
     assert set(CONVERSION_CALLABLES) == {
         "is_valid_ltspice_netlist_file",
         "ltspice_netlist_to_asc",
+        "kicad_sch_to_ltspice_netlist",
+        "ltspice_netlist_to_kicad_sch",
     }
 
 
@@ -245,3 +247,67 @@ def test_conversion_request_rejects_non_bool_voltage_must_have_dc(
                 "convert_settings": {"voltage_must_have_dc": invalid_value},
             },
         )
+
+
+@pytest.mark.parametrize(
+    "api_name,inputs",
+    [
+        (
+            "kicad_sch_to_ltspice_netlist",
+            {"kicad_sch_filepath": "input.kicad_sch", "ltspice_netlist_filepath_out": "output.net"},
+        ),
+        (
+            "ltspice_netlist_to_kicad_sch",
+            {"ltspice_netlist_filepath": "input.net", "kicad_sch_filepath_out": "output.kicad_sch"},
+        ),
+    ],
+)
+def test_kicad_conversion_apis_receive_configured_convert_settings(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    api_name: str,
+    inputs: dict,
+):
+    captured = {}
+
+    def fake_converter(**kwargs):
+        captured.update(kwargs)
+        return True, "OK", 0
+
+    monkeypatch.setitem(CONVERSION_CALLABLES, api_name, fake_converter)
+    d = ApiDispatcher(config=_config(tmp_path), project_root=tmp_path)
+
+    out_name, out = d.execute_api(api_name, inputs)
+
+    assert out_name is None
+    assert out["result"] == [True, "OK", 0]
+    assert captured["convert_settings"]["kicad_path"] == "/usr/share/kicad"
+    assert captured["convert_settings"]["minimum_dist"] == 32
+    assert captured["convert_settings"]["voltage_must_have_dc"] is True
+
+
+def test_kicad_conversion_request_settings_override_configured_defaults(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    captured = {}
+
+    def fake_converter(**kwargs):
+        captured.update(kwargs)
+        return True, "OK", 0
+
+    monkeypatch.setitem(CONVERSION_CALLABLES, "ltspice_netlist_to_kicad_sch", fake_converter)
+    d = ApiDispatcher(config=_config(tmp_path), project_root=tmp_path)
+
+    d.execute_api(
+        "ltspice_netlist_to_kicad_sch",
+        {
+            "ltspice_netlist_filepath": "input.net",
+            "kicad_sch_filepath_out": "output.kicad_sch",
+            "convert_settings": {"kicad_path": "kicad_libs"},
+        },
+    )
+
+    assert captured["convert_settings"]["kicad_path"] == str((tmp_path / "kicad_libs").resolve())
+    assert captured["convert_settings"]["minimum_dist"] == 32
+

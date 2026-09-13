@@ -67,6 +67,7 @@ def test_convert_settings_are_optional_and_have_defaults():
     assert cfg.convert_settings.autoplace_iter == 12
     assert cfg.convert_settings.ltspice_version == 4.1
     assert cfg.convert_settings.voltage_must_have_dc is True
+    assert cfg.convert_settings.kicad_path == "/usr/share/kicad/"
 
 
 def test_convert_settings_can_be_partially_overridden():
@@ -97,3 +98,4 @@ def test_checked_in_config_loads_with_convert_settings():
 
     assert cfg.convert_settings.grid_size == 16
     assert cfg.convert_settings.voltage_must_have_dc is True
+    assert cfg.convert_settings.kicad_path == "/usr/share/kicad/"

@@ -14,6 +14,7 @@
     "grid_size": 16,
     "autoplace_iter": 12,
     "ltspice_version": 4.1,
-    "voltage_must_have_dc": true
+    "voltage_must_have_dc": true,
+    "kicad_path": "/usr/share/kicad/"
   }
 }

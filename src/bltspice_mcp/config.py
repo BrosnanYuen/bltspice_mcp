@@ -17,6 +17,7 @@ DEFAULT_CONVERT_SETTINGS = {
     "autoplace_iter": 12,
     "ltspice_version": 4.1,
     "voltage_must_have_dc": True,
+    "kicad_path": "/usr/share/kicad/",
 }
 
 
@@ -38,8 +39,9 @@ class ConvertSettings(BaseModel):
     voltage_must_have_dc: StrictBool = Field(
         default=DEFAULT_CONVERT_SETTINGS["voltage_must_have_dc"]
     )
+    kicad_path: str = Field(default=DEFAULT_CONVERT_SETTINGS["kicad_path"])
 
-    @field_validator("ltspice_windows_path", "ltspice_wine_path")
+    @field_validator("ltspice_windows_path", "ltspice_wine_path", "kicad_path")
     @classmethod
     def normalize_convert_path_text(cls, value: str) -> str:
         return value.strip()
