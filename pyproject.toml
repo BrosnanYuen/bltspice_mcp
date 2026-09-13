@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "PyLTSpice>=6.0.1",
-  "fastmcp>=4.0.3",
+  "fastmcp==2.14.7",
   "electronics-design>=0.2.1",
   "psutil>=7.2.2",
 ]
