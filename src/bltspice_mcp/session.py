@@ -240,27 +240,36 @@ class SessionManager:
             if session.reset_task is not None and not session.reset_task.done():
                 session.reset_task.cancel()
 
-        tasks = [
-            task
-            for session in sessions
-            for task in (session.current_task, session.reset_task)
-            if task is not None
-        ]
-        if tasks:
-            await asyncio.gather(*tasks, return_exceptions=True)
-        for session in sessions:
-            if session.worker_task is not None and not session.worker_task.done():
-                session.worker_task.cancel()
-        worker_tasks = [
-            session.worker_task
-            for session in sessions
-            if session.worker_task is not None
-        ]
-        if worker_tasks:
-            await asyncio.gather(*worker_tasks, return_exceptions=True)
-        for session in sessions:
-            await self._kill_session_processes(session)
-        self._sessions.clear()
+        try:
+            tasks = [
+                task
+                for session in sessions
+                for task in (session.current_task, session.reset_task)
+                if task is not None
+            ]
+            if tasks:
+                await asyncio.gather(*tasks, return_exceptions=True)
+            for session in sessions:
+                if session.worker_task is not None and not session.worker_task.done():
+                    session.worker_task.cancel()
+            worker_tasks = [
+                session.worker_task
+                for session in sessions
+                if session.worker_task is not None
+            ]
+            if worker_tasks:
+                await asyncio.gather(*worker_tasks, return_exceptions=True)
+        finally:
+            # Shutdown can cancel this coroutine while it awaits the worker tasks.
+            # Terminate synchronously so cancellation cannot skip process cleanup;
+            # surviving session workers make the interpreter hang at exit when
+            # multiprocessing joins its non-daemon children.
+            for session in sessions:
+                try:
+                    self._terminate_session_processes(session)
+                except Exception:
+                    continue
+            self._sessions.clear()
 
     async def _worker_loop(self, session_id: str, session: SessionState) -> None:
         while True:
@@ -350,6 +359,9 @@ class SessionManager:
         raise RuntimeError("session worker failed to start")
 
     async def _kill_session_processes(self, session: SessionState) -> dict[str, Any]:
+        return await asyncio.to_thread(self._terminate_session_processes, session)
+
+    def _terminate_session_processes(self, session: SessionState) -> dict[str, Any]:
         """SIGKILL only processes carrying this session's unguessable ownership token."""
         process = session.process
         worker_pid = process.pid if process is not None else None
@@ -402,7 +414,7 @@ class SessionManager:
                 pass
 
         if process is not None:
-            await asyncio.to_thread(process.join, 1.0)
+            process.join(1.0)
         self._close_process_handles(session)
 
         return {

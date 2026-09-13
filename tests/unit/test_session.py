@@ -170,3 +170,25 @@ async def test_runtime_info_returns_immediately(config: ServerConfig, tmp_path: 
     assert status["operation"] == "runtime_info"
     assert "os" in status["output"]
     assert "ltspice_running" in status["output"]
+
+
+@pytest.mark.asyncio
+async def test_aclose_kills_worker_when_cancelled(config: ServerConfig, tmp_path: Path):
+    manager = SessionManager(config=config, project_root=tmp_path)
+    try:
+        await manager.enqueue_execute("session-1", api_name="all_loggers", inputs={})
+        final = await _poll_status(manager, "session-1")
+        assert final["status"] == "LTspice operation completed!"
+        session = manager.get_or_create("session-1")
+        worker_pid = session.process.pid
+
+        close_task = asyncio.create_task(manager.aclose())
+        await asyncio.sleep(0)
+        close_task.cancel()
+        with pytest.raises(asyncio.CancelledError):
+            await close_task
+
+        assert not psutil.pid_exists(worker_pid)
+    finally:
+        await manager.aclose()
+
