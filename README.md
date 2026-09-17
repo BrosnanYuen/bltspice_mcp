@@ -33,7 +33,7 @@ REALTIME LTSpice simulation and export to .csv!
 python3 -m venv .venv
 . .venv/bin/activate
 pip install -U pip
-pip install "PyLTSpice>=6.0.1" "fastmcp>=3.4.4" "electronics-design>=0.1.9" pytest pytest-asyncio
+pip install "PyLTSpice>=6.0.1" "fastmcp==2.14.7" "electronics-design>=0.2.3" pytest pytest-asyncio
 pip install -e .
 ```
 
